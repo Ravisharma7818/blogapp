@@ -1,4 +1,3 @@
-const { mongoose } = require('mongoose');
 const User = require('../Models/User');
 
 
@@ -19,21 +18,36 @@ module.exports.getAlluser = async (req, res, next) => {
 
 
 exports.register = async (req, res, next) => {
+    console.log("I Am Working");
+
     const { name, email, password } = req.body;
+    
     const Dbemail =await  User.findOne({email})
 
     if(Dbemail)
     {
-        return res.send('Already Registered')
+        return res.send({
+            success:false,
+            message:'User Already Registered',
+            status: 404
+        })
     }
     try {
-        const user = await User.create({
-            name,
-            email,
-            password,
-        });
-        res.send(user)
-        user.save()
+       const user =await  User.create({
+          name,
+          email,
+         password,
+         blog:[]
+
+       })
+       console.log(user);
+    
+       res.status(500).json({
+        success: true,
+        user: user,
+    });
+
+          user.save()
     } catch (error) {
         res.send(error);
     }
@@ -43,6 +57,7 @@ exports.register = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
     const { email, password } = req.body;
+  
 
 
     if (!email || !password) {
@@ -60,13 +75,14 @@ exports.login = async (req, res, next) => {
         }
         const Pass_Match = await user.matchPasswords(password);
         console.log(Pass_Match); 
-        if (!Pass_Match) {
-            return res.send('Password Not Correct')
-        }
-        res.status(500).json({
-            success: true,
-            user: users,
-        });
+        // if (!Pass_Match) {
+        //     res.status(500).json({
+        //         success: false,
+               
+        //     });
+        // }
+        return res.status(200).json({  users })
+       
 
 
     } catch (error) {

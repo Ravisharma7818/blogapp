@@ -16,14 +16,20 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: [true, "Password is Required"],
     },
+    blogs:[
+        {
+            type:mongoose.Types.ObjectId,
+            ref:"Blog",
+            required:true,
+       
+        }
+    ]
 });
 
 UserSchema.pre("save", async function (next) {
-    if (!this.isModified("password")) {
-        next();
-    }
-    const salt = bcrpt.genSaltSync(10);
-    this.password = bcrpt.hashSync(this.password, salt)
+   
+    const salt =await  bcrpt.genSalt(10);
+    this.password =await bcrpt.hash(this.password, salt)
     next();
 })
 

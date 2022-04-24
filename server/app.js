@@ -1,7 +1,10 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-const routes = require('./Routes/user_routes')
+const UserRoutes = require('./Routes/user_routes');
+const BlogRoutes = require('./Routes/blog_routes');
+
+const User = require('./Models/User');
 const app = express();
 
 
@@ -22,8 +25,8 @@ app.listen(port,()=>{
 
 
 // Routes 
-app.use('/api/user',routes)
-
+app.use('/api/user',UserRoutes);
+app.use('/api',BlogRoutes);
 
 
 
