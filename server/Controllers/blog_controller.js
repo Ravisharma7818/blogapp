@@ -15,7 +15,7 @@ module.exports.getAllBlog = async function (req, res, next) {
         return res.status(404).json("No blog found");
     }
 }
-
+    
 
 module.exports.AddBlog = async function (req, res, next) {
 
@@ -140,4 +140,24 @@ module.exports.DeleteBlog = async function (req, res, next) {
     }
 
 
+}
+
+
+module.exports.getByUserId = async function(req, res){
+    const u_id= req.params.id;
+    let userblog;
+    try {
+        userblog=await User.findById(u_id).populate("blogs")
+        console.log(userblog);
+        return res.status(200).json({blogs:userblog});
+
+    } catch (error) {
+        console.log(error);
+        
+    }
+    if(!userblog)
+    {
+        return res.status(404).json("No Blog Found");
+
+    }
 }
