@@ -42,14 +42,15 @@ exports.register = async (req, res, next) => {
        })
        console.log(user);
     
-       res.status(500).json({
+       res.status(200).json({
         success: true,
         user: user,
+
     });
 
           user.save()
     } catch (error) {
-        res.send(error);
+        res.send(error,("He "));
     }
 };
 

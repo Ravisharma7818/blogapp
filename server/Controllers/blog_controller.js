@@ -6,8 +6,8 @@ module.exports.getAllBlog = async function (req, res, next) {
 
     const user_blog = await Blog.find();
     try {
-        res.status(500).json(user_blog)
-        console.log(user_blog);
+        res.status(200).json(user_blog)
+        // console.log(user_blog);
     } catch (error) {
         console.log(error);
     }

@@ -3,11 +3,11 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const UserRoutes = require('./Routes/user_routes');
 const BlogRoutes = require('./Routes/blog_routes');
-
+const cors = require('cors');
 const User = require('./Models/User');
 const app = express();
 
-
+app.use(cors())
 // For Env File
 dotenv.config()
 

@@ -2,11 +2,22 @@ import React from 'react'
 import { AppBar, Typography, Toolbar, Box, Button, Tabs, Tab } from "@mui/material";
 import { useState } from 'react';
 import { Link } from "react-router-dom";
-import {useSelector} from 'react-redux'
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
+import {useNavigate} from 'react-router-dom'
+import { authActions } from '../store';
 
 const Header = () => {
-  const isLoggedIn = useSelector(state=>state.isLoggedIn);
+  const navigate = useNavigate()
+
+  const isLoggedIn = useSelector(state => state.isLoggedIn);
+  const dispatch = useDispatch()
+const logoutFunction = (e) =>{
+  e.preventDefault();
+  dispatch(authActions.logout())
+  navigate('/auth')
+}
 
   const [state, setState] = useState()
 
@@ -23,21 +34,21 @@ const Header = () => {
           variant="h4"
           sx={{ margin: 1, borderRadius: 10, cursor: "pointer" }}> BlogsApp</Typography>
 
-       { isLoggedIn && <Box display="flex" marginLeft={"auto"} marginRight={"auto"}>
+        {isLoggedIn && <Box display="flex" marginLeft={"auto"} marginRight={"auto"}>
           <Tabs value={state} onChange={(e, val) => setState(val)} textColor="inherit">
-            <Tab label="All Blogs" LinkComponent={Link} to="/blogs"/>
-            <Tab label="My Blogs" LinkComponent={Link} to="/myBlogs"/>
+            <Tab label="All Blogs" value={0} LinkComponent={Link} to="/blogs" />
+            <Tab label="My Blogs"  value={0}  LinkComponent={Link} to="/myBlogs" />
 
           </Tabs>
 
         </Box>}
 
         <Box display="flex" marginLeft="auto">
-        
-          {!isLoggedIn &&   <><Button variant="contained" color="warning" sx={{ margin: 1, borderRadius: 10 }} LinkComponent={Link} to="/Auth" >Login</Button>
-          <Button variant="contained" color="warning" sx={{ margin: 1, borderRadius: 10 }} LinkComponent={Link} to="/Auth">Signup</Button> </>}
-         {isLoggedIn && <Button variant="contained" color="warning" sx={{ margin: 1, borderRadius: 10 }} LinkComponent={Link} to="/Auth">Logout</Button>}
-         
+
+          {!isLoggedIn && <><Button variant="contained" color="warning" sx={{ margin: 1, borderRadius: 10 }} LinkComponent={Link} to="/Auth" >Login</Button>
+            <Button variant="contained" color="warning" sx={{ margin: 1, borderRadius: 10 }} LinkComponent={Link} to="/Auth">Signup</Button> </>}
+          {isLoggedIn && <Button onClick = {logoutFunction} variant="contained" color="warning" sx={{ margin: 1, borderRadius: 10 }} LinkComponent={Link} to="/Auth">Logout</Button>}
+
         </Box>
       </Toolbar>
     </AppBar>
