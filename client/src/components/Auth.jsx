@@ -2,19 +2,20 @@ import { Typography, Box, Button, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import axios from 'axios';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { authActions } from '../store';
 
- const Auth = () => {
-   const navigate = useNavigate()
+const Auth = () => {
+  const navigate = useNavigate()
+  // const [data_user, userData] = useState()
   const [isSignup, setSignup] = useState(false)
   const [input, setInputs] = useState({
     name: "",
     email: "",
     password: ""
   })
-const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
 
 
@@ -30,21 +31,27 @@ const dispatch = useDispatch()
       name: input.name,
       email: input.email,
       password: input.password
-    }).catch(e => console.log(e));
+    }).catch((e) => console.log(e))
 
 
-    return res.data
-  }
+
+    const data = await res.data
+    console.log(data);
+    return data
+  };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(input);
     if (isSignup) {
-      sendRequest("register").then(()=>dispatch(authActions.login())).then(()=>navigate('/blogs')).then(data => console.log(data));
+      sendRequest("register").then((data) => localStorage.setItem("UserId", data.users._id)).then(() => dispatch(authActions.login())).then(() => navigate('/blogs')).then((data) => console.log(data));
+
     }
     else {
-      sendRequest().then(()=>dispatch(authActions.login())).then(()=>navigate('/blogs')).then(data => console.log(data))
+      sendRequest().then((data) => localStorage.setItem("UserId", data.users._id)).then(() => dispatch(authActions.login())).then(() => navigate('/blogs'))
     }
+
+
   }
   return (
     <div>
@@ -64,7 +71,7 @@ const dispatch = useDispatch()
         >
           <Typography padding={3} variant="h5" textAlign="center">{isSignup ? 'Signup ' : "Login"}
           </Typography>
-          {isSignup && <TextField margin="normal" type="text" placeholder='Name' value={input.name} onChange={handleChange} name="name" required    />}
+          {isSignup && <TextField margin="normal" type="text" placeholder='Name' value={input.name} onChange={handleChange} name="name" required />}
           <TextField required margin="normal" type="email" placeholder='Email' value={input.email} name="email" onChange={handleChange} />
           <TextField required margin="normal" type="password" placeholder='Password' value={input.password} name="password" onChange={handleChange} />
           <Button variant="contained" sx={{ borderRadius: 4 }} color="warning" type="Submit">Submit</Button>
@@ -76,9 +83,10 @@ const dispatch = useDispatch()
 
         </Box>
       </form>
+      
     </div>
+
   )
 }
 
 export default Auth
-

@@ -4,7 +4,7 @@ const User = require('../Models/User')
 
 module.exports.getAllBlog = async function (req, res, next) {
 
-    const user_blog = await Blog.find();
+    const user_blog = await Blog.find().populate('user');
     try {
         res.status(200).json(user_blog)
         // console.log(user_blog);
@@ -15,7 +15,7 @@ module.exports.getAllBlog = async function (req, res, next) {
         return res.status(404).json("No blog found");
     }
 }
-    
+
 
 module.exports.AddBlog = async function (req, res, next) {
 
@@ -47,7 +47,7 @@ module.exports.AddBlog = async function (req, res, next) {
         user_exist.blogs.push(blog);
         await user_exist.save({ session });
         await session.commitTransaction();
-        res.send(blog)
+        return res.status(200).json({ blog, user_exist });
 
     } catch (error) {
         console.log(error);
@@ -143,20 +143,20 @@ module.exports.DeleteBlog = async function (req, res, next) {
 }
 
 
-module.exports.getByUserId = async function(req, res){
-    const u_id= req.params.id;
+module.exports.getByUserId = async function (req, res) {
+    const u_id = req.params.id;
+    // const user = await User.findById(u_id);
     let userblog;
     try {
-        userblog=await User.findById(u_id).populate("blogs")
+        userblog = await User.findById(u_id).populate("blogs")
         console.log(userblog);
-        return res.status(200).json({blogs:userblog});
+        return res.status(200).json({ user: userblog });
 
     } catch (error) {
         console.log(error);
-        
+
     }
-    if(!userblog)
-    {
+    if (!userblog) {
         return res.status(404).json("No Blog Found");
 
     }

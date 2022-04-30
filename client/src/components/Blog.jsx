@@ -1,41 +1,40 @@
 import React from 'react'
-import {Typography, Avatar,CardHeader,CardMedia,CardContent,Card} from '@mui/material'
-const Blog = () => {
+import { Typography, Avatar, CardHeader, CardMedia, CardContent, Card } from '@mui/material'
+const Blog = ({title,desc ,image,user}) => {
   return (
     <>
 
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{
+        width: "30%", margin: 'auto', mt: 2, padding: 2, boxShadow: "1px 5px 5px  #ccc", ":hover": {
+
+          boxShadow: "1px 5px 8px  #ccc"
+        }
+      }}>
         <CardHeader
           avatar={
-            <Avatar sx={{ bgcolor:" red[500]" }} aria-label="recipe">
-              R
+            <Avatar sx={{ bgcolor: " red" }} aria-label="recipe">
+            U
             </Avatar>
           }
-         
-          title="Shrimp and Chorizo Paella"
+
+          title={title}
           subheader="September 14, 2016"
         />
         <CardMedia
           component="img"
           height="194"
-          image="/static/images/cards/paella.jpg"
+          image={image}
           alt="Paella dish"
         />
+       
+
         <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            This impressive paella is a perfect party dish and a fun meal to cook
-            together with your guests. Add 1 cup of frozen peas along with the mussels,
-            if you like.
+
+          <Typography>
+         {desc}
           </Typography>
         </CardContent>
-   
-          <CardContent>
-           
-            <Typography>
-              Set aside off of the heat to let rest for 10 minutes, and then serve.
-            </Typography>
-          </CardContent>
-  
+
       </Card>
     </>
   )

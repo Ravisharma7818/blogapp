@@ -74,15 +74,9 @@ exports.login = async (req, res, next) => {
 
             return res.status(400).json({ message: 'Invalid Credentials' })
         }
-        const Pass_Match = await user.matchPasswords(password);
-        console.log(Pass_Match); 
-        // if (!Pass_Match) {
-        //     res.status(500).json({
-        //         success: false,
-               
-        //     });
-        // }
-        return res.status(200).json({  users })
+        
+        
+        return res.status(200).json({ users})
        
 
 

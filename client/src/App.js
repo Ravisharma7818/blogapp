@@ -17,8 +17,8 @@ import {
 } from "react-router-dom";
 function App() {
 
-  const isLoggedIn = useSelector(state=>state.isLoggedIn);
-  console.log(isLoggedIn);
+   useSelector(state=>state.isLoggedIn);
+  // console.log(isLoggedIn);
 
 
   return <React.Fragment>

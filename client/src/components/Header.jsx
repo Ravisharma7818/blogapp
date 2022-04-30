@@ -1,6 +1,6 @@
 import React from 'react'
 import { AppBar, Typography, Toolbar, Box, Button, Tabs, Tab } from "@mui/material";
-import { useState } from 'react';
+// import { useState } from 'react';
 import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
@@ -19,7 +19,7 @@ const logoutFunction = (e) =>{
   navigate('/auth')
 }
 
-  const [state, setState] = useState()
+  // const [state, setState] = useState()
 
   return (
 
@@ -35,9 +35,11 @@ const logoutFunction = (e) =>{
           sx={{ margin: 1, borderRadius: 10, cursor: "pointer" }}> BlogsApp</Typography>
 
         {isLoggedIn && <Box display="flex" marginLeft={"auto"} marginRight={"auto"}>
-          <Tabs value={state} onChange={(e, val) => setState(val)} textColor="inherit">
-            <Tab label="All Blogs" value={0} LinkComponent={Link} to="/blogs" />
-            <Tab label="My Blogs"  value={0}  LinkComponent={Link} to="/myBlogs" />
+          <Tabs value ={1}  textColor="inherit">
+            <Tab label="Add Blog" value ={1}  LinkComponent={Link} to="/blogs/add" />
+            <Tab label="All Blogs" value ={1}  LinkComponent={Link} to="/blogs" />
+            <Tab label="My Blogs" value ={1}  LinkComponent={Link} to="/myBlogs" />
+
 
           </Tabs>
 
