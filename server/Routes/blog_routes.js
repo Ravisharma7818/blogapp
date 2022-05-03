@@ -6,7 +6,7 @@ const router = require("express").Router();
 router.get('/getblog',getAllBlog);
 router.post('/addblog',AddBlog);
 router.put('/editblog/:id',EditBlog);
-router.post('/deleteblog/:id',DeleteBlog);
+router.delete('/deleteblog/:id',DeleteBlog);
 router.get('/:id',getBlogById);
 router.get('/user/:id',getByUserId);
 

@@ -4,14 +4,14 @@ const User = require('../Models/User')
 
 module.exports.getAllBlog = async function (req, res, next) {
 
-    const user_blog = await Blog.find().populate('user');
+    const blogs = await Blog.find().populate('user');
     try {
-        res.status(200).json(user_blog)
+        res.status(200).json(blogs)
         // console.log(user_blog);
     } catch (error) {
         console.log(error);
     }
-    if (!user_blog) {
+    if (!blogs) {
         return res.status(404).json("No blog found");
     }
 }
@@ -61,11 +61,11 @@ module.exports.AddBlog = async function (req, res, next) {
 module.exports.EditBlog = async function (req, res, next) {
 
     const blog_id = req.params.id;
-    const { title, desc } = req.body;
+    const { title, desc ,image } = req.body;
     let blog
     try {
         blog = await Blog.findByIdAndUpdate(blog_id, {
-            title, desc
+            title, desc ,image
 
 
         })
@@ -113,16 +113,16 @@ module.exports.getBlogById = async function (req, res, next) {
     let blog_id = req.params.id;
     try {
         const blog = await Blog.findById(blog_id);
+        console.log(blog);
         if (blog) {
             res.send({ blog })
         }
         else {
-            // console.log(err);
             return res.status(404).json("No blog found");
         }
 
     } catch (error) {
-
+        console.log(error);
     }
 
 }
@@ -133,7 +133,7 @@ module.exports.DeleteBlog = async function (req, res, next) {
     try {
         const blog = await Blog.findByIdAndRemove(blog_id);
 
-        return res.status(404).json("Succesfully DeleteBlog");
+        return res.status(200).json("Succesfully DeleteBlog");
 
     } catch (error) {
         console.log(error);

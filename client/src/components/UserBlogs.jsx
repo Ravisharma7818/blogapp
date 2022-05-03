@@ -4,7 +4,7 @@ import Blog from './Blog'
 
 const UserBlogs = () => {
   const [user, setUser] = useState();
-  const [username,SetUserName] = useState();
+  const [username, SetUserName] = useState();
 
   const id = localStorage.getItem("UserId");
 
@@ -21,14 +21,21 @@ const UserBlogs = () => {
   console.log(user);
   console.log(username);
   return (
-    
-      <div>
-        {" "}
-        {user&& user.blogs.map((blog, index) =>
 
-          <Blog key={index} title={blog.title} desc={blog.desc} image={blog.image}  user={username}  />)}</div>
+    <div>
+      {" "}
+      {user && user.blogs.map((blog, index) =>
 
-  
+        <Blog
+        isUser={true}
+          key={index}
+          title={blog.title}
+          desc={blog.desc}
+          image={blog.image}
+          user={username}
+        />)}</div>
+
+
   )
 
 }

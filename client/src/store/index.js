@@ -2,8 +2,7 @@ import { configureStore, createSlice } from '@reduxjs/toolkit'
 
 
 
-var a= localStorage.getItem("UserId")
-console.log(a);
+
 const authSlice = createSlice({
     name: "auth",
   
@@ -13,6 +12,7 @@ const authSlice = createSlice({
             state.isLoggedIn = true;
         },
         logout(state) {
+            localStorage.removeItem("UserId")
             state.isLoggedIn = false;
         }
     }
